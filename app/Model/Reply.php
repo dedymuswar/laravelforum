@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
+    protected $fillable=['body','question_id','user_id'];
+
     public function question()
     {
         return $this->belongsTo('App\Model\Question');
@@ -16,8 +18,8 @@ class Reply extends Model
         return $this->belongsTo('App\Model\User');
     }
 
-    public function likes()
+    public function like()
     {
-        return $this->hasMany('App\Model\Likes');
+        return $this->hasMany('App\Model\Like');
     }
 }
