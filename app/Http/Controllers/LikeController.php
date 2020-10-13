@@ -21,5 +21,6 @@ class LikeController extends Controller
         // $reply->like()->where('user_id', auth()->id())->first()->delete();
         $reply->like()->where('user_id', '1')->first()->delete();
         // dedymuswar
+        //edit
     }
 }
