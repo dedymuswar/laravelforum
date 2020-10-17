@@ -3,6 +3,21 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
+Route::group([
+
+    'prefix' => 'auth'
+
+], function () {
+
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+    Route::post('payload', 'AuthController@payload');
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,4 +34,3 @@ Route::apiResource('/category', 'CategoryController');
 Route::apiResource('/question/{question}/reply', 'ReplyController');
 Route::post('/like/{reply}','LikeController@likeIt');
 Route::delete('/like/{reply}','LikeController@unLikeIt');
-// dedy muswar
