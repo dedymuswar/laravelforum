@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
@@ -60,6 +61,9 @@ class Handler extends ExceptionHandler
         }
         elseif($exception instanceof JWTException){
             return response()->json(['error' => 'Terjadi permasalahan pada token anda'], 400);
+        }
+        elseif($exception instanceof TokenBlacklistedException){
+            return response()->json(['error' => 'Token tidak dapat digunakan, silahkan gunakan token baru'], 400);
         }
         return parent::render($request, $exception);
     }
