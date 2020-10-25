@@ -5,7 +5,7 @@
         <div class="w-full max-w-md">
           <form
             method="POST"
-            
+            @submit.prevent="login"
             class="bg-white shadow-lg rounded px-12 pt-6 pb-8 mb-4"
           >
             <!-- @csrf -->
@@ -82,6 +82,13 @@ export default {
                 password:null
             }
         }
+    },
+    methods:{
+      login(){
+        axios.post('/api/auth/login', this.form)
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err.response.data))
+      }
     }
 }
 </script>

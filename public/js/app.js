@@ -2119,6 +2119,15 @@ __webpack_require__.r(__webpack_exports__);
         password: null
       }
     };
+  },
+  methods: {
+    login: function login() {
+      axios.post('/api/auth/login', this.form).then(function (res) {
+        return console.log(res.data);
+      })["catch"](function (err) {
+        return console.log(err.response.data);
+      });
+    }
   }
 });
 
@@ -37949,7 +37958,13 @@ var render = function() {
             "form",
             {
               staticClass: "bg-white shadow-lg rounded px-12 pt-6 pb-8 mb-4",
-              attrs: { method: "POST" }
+              attrs: { method: "POST" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.login($event)
+                }
+              }
             },
             [
               _c(
