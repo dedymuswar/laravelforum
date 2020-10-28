@@ -31,23 +31,11 @@
       </div>
       <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
-          <router-link class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" to="/forum">Forum</router-link>
-          <a
-            href="#responsive-header"
-            class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-          >
-            Ask Question
-          </a>
-          <a
-            href="#responsive-header"
-            class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
-          >
-            Category
-          </a>
+          <router-link class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" v-for="item in itemsMenu" :key="item.title" :to="item.to" v-if="item.show">{{item.title}}</router-link>
+          <!-- <router-link class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" to="/forum">Forum</router-link> -->
         </div>
         <div>
-          <router-link class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" to="/login">Login</router-link>
-          </a>
+          <router-link class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" v-for="item in itemsAuth" :key="item.title" :to="item.to" v-if="item.show">{{item.title}}</router-link>
         </div>
       </div>
     </nav>
@@ -57,5 +45,24 @@
 <script>
 export default {
      name: 'Toolbar',
+     data(){
+       return{
+         itemsMenu : [
+           {'title' : 'Forum', to:'/forum', show:true},
+           {'title' : 'Ask Question', to:'/ask', show: User.loggedIn()},
+           {'title' : 'Category', to:'/ask', show: User.loggedIn()},
+           
+         ],
+         itemsAuth:[
+           {'title' : 'Login', to:'/login', show: !User.loggedIn()},
+           {'title' : 'Logout', to:'/logout', show: User.loggedIn()},
+         ]
+       }
+     },
+     created(){
+       EventBus.$on('logout', () => {
+         User.logout()
+       })
+     }
 }
 </script>

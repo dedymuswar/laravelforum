@@ -22,7 +22,7 @@
                 Email
               </label>
               <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                class="shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-teal-500"
                 name="email"
                 v-model="form.email"
                 type="email"
@@ -42,7 +42,7 @@
                 Password
               </label>
               <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                class="shadow appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:border-teal-500"
                 v-model="form.password"
                 type="password"
                 placeholder="Password"
@@ -55,7 +55,19 @@
                     @enderror -->
             </div>
             <div class="flex items-center justify-between">
-              <button class="px-4 py-2 rounded text-white inline-block shadow-lg bg-blue-500 hover:bg-blue-600 focus:bg-blue-700" type="submit">Sign In</button>
+              <div>
+                <button
+                  class="px-4 py-2 rounded text-white inline-block shadow-lg bg-teal-500 hover:bg-teal-600 focus:bg-teal-700"
+                  type="submit"
+                >
+                  Login
+                </button>
+                <router-link
+                  class="px-4 py-2 rounded text-white inline-block shadow-lg bg-blue-500 hover:bg-blue-600 focus:bg-blue-700"
+                  to="/signup"
+                  >SignUp</router-link
+                >
+              </div>
               <a
                 class="inline-block align-baseline font-normal text-sm text-blue-500 hover:text-blue-800"
                 href="#"
@@ -75,19 +87,25 @@
 
 <script>
 export default {
-    data(){
-        return{
-            form: {
-                email:null,
-                password:null
-            }
-        }
-    },
-    methods:{
-      login(){
-        User.login(this.form)
-      }
+  data() {
+    return {
+      form: {
+        email: null,
+        password: null,
+      },
     }
+  },
+  created(){
+    if (User.loggedIn()) {
+      this.$router.push({name:'forum'})
+    }
+  },
+  methods: {
+    login() {
+      User.login(this.form)
+      // this.$router.push({name: 'forum'})
+    },
+  },
 }
 </script>
 

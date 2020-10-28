@@ -1,8 +1,9 @@
 class Token {
     isValid(token){
         const payload = this.payload(token);
+        // console.log(payload.iss);
         if(payload){
-            return payload.iss == "http://laravelforum.test/api/auth/login" ? true : false
+            return payload.iss == "http://laravelforum.test/api/auth/login" || "http://laravelforum.test/api/auth/signup" ? true : false
         }
 
         return false
